@@ -1,5 +1,5 @@
 ---
-name: Checkpoint Workflow
+name: checkpoint-workflow
 description: This skill should be used when the user asks to "store a checkpoint", "save my progress", "save session state", "load checkpoint", "resume work", "where were we", "what was I working on", "start a new session", "switch tasks", mentions "session persistence", "context management", or discusses when and how to use checkpoints effectively. Provides guidance on the checkpoint lifecycle for session continuity.
 ---
 

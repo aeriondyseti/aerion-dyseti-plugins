@@ -1,5 +1,5 @@
 ---
-name: Vector Memory Usage
+name: vector-memory-usage
 description: This skill should be used when the user asks to "store a memory", "remember this", "search memories", "what did we decide", "find relevant context", "update a memory", "delete a memory", "that memory was useful", discusses "memory quality", "memory best practices", "proactive memory search", or when guidance is needed on when and how to use the vector memory system effectively. Provides patterns for storing, searching, and leveraging semantic memories across sessions.
 ---
 
