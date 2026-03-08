@@ -5,9 +5,7 @@
  * Monitors session health via resource pressure signals from the transcript:
  *   1. Turn count (main chain only, excludes subagent/sidechain entries)
  *   2. Context length (input_tokens + cache_read_input_tokens + cache_creation_input_tokens)
- *   3. Compression events (detected by sudden drops in context length)
- *
- * Based on session-monitor.py's monitoring approach, adapted for Stop hook format.
+ *   3. Compression count (tracked by PreCompact hook in session-compact.ts)
  * Always approves — uses systemMessage for checkpoint recommendations.
  *
  * NOTE: Never use "block" in a Stop hook for monitoring purposes. It creates
@@ -36,17 +34,17 @@ interface HookInput {
 
 // ── Configuration (matching session-monitor.py) ─────────────────────
 
-const TURN_WARN = 80;
-const TURN_STRONG = 150;
+const TURN_WARN = 120;
+const TURN_STRONG = 180;
 const TURN_CRITICAL = 250;
 
-const CONTEXT_WARN = 100_000; // tokens
-const CONTEXT_STRONG = 140_000;
-const CONTEXT_CRITICAL = 170_000;
+const CONTEXT_WARN = 120_000; // tokens
+const CONTEXT_STRONG = 150_000;
+const CONTEXT_CRITICAL = 175_000;
 
-const COMPRESS_WARN = 1;
-const COMPRESS_STRONG = 3;
-const COMPRESS_CRITICAL = 5;
+const COMPRESS_WARN = 2;
+const COMPRESS_STRONG = 4;
+const COMPRESS_CRITICAL = 6;
 
 const STATE_DIR = join(tmpdir(), "claude-context-monitor");
 
@@ -57,7 +55,6 @@ interface MonitorState {
   turn_count: number;
   compressions: number;
   context_length: number;
-  peak_context_length: number;
 }
 
 function getStatePath(sessionId: string): string {
@@ -77,7 +74,6 @@ function loadState(sessionId: string): MonitorState {
     turn_count: 0,
     compressions: 0,
     context_length: 0,
-    peak_context_length: 0,
   };
 }
 
@@ -144,24 +140,10 @@ function analyzeTranscript(
     // Context length = input_tokens + cache_read_input_tokens + cache_creation_input_tokens
     // from the most recent main-chain entry
     if (mostRecentMainChainUsage) {
-      const contextLength =
+      state.context_length =
         (mostRecentMainChainUsage.input_tokens || 0) +
         (mostRecentMainChainUsage.cache_read_input_tokens ?? 0) +
         (mostRecentMainChainUsage.cache_creation_input_tokens ?? 0);
-
-      // Detect compression: peak was high, current dropped significantly
-      if (
-        state.peak_context_length > 30_000 &&
-        contextLength < state.peak_context_length * 0.6 &&
-        contextLength > 0
-      ) {
-        state.compressions += 1;
-      }
-
-      state.context_length = contextLength;
-      if (contextLength > state.peak_context_length) {
-        state.peak_context_length = contextLength;
-      }
     }
 
     state.last_offset = fileSize;
