@@ -1,5 +1,5 @@
 ---
-name: checkpoint:store
+name: checkpoint-store
 description: Save session context to vector memory for seamless resumption
 user-invocable: true
 disable-model-invocation: true

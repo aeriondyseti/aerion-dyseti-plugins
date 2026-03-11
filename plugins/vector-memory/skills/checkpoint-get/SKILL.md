@@ -1,5 +1,5 @@
 ---
-name: checkpoint:get
+name: checkpoint-get
 description: Load project context from checkpoint + git + vector memories
 user-invocable: true
 disable-model-invocation: true
