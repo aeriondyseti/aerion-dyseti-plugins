@@ -1,0 +1,11 @@
+{
+  "vector-memory@aerion-dyseti-plugins": [
+    {
+      "scope": "user",
+      "installPath": "/root/.claude/plugins/cache/aerion-dyseti-plugins/vector-memory/1.4.0",
+      "version": "1.4.0",
+      "installedAt": "2026-03-06T04:43:59.490Z",
+      "lastUpdated": "2026-03-11T06:07:58.004Z"
+    }
+  ]
+}
