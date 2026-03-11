@@ -1,11 +1,11 @@
 ---
-name: checkpoint-store
+name: waypoint:set
 description: Save session context to vector memory for seamless resumption
 user-invocable: true
 disable-model-invocation: true
 ---
 
-Create a comprehensive checkpoint snapshot using vector-memory.
+Create a comprehensive waypoint snapshot using vector-memory.
 
 ## 1. Extract & Store Memories
 
@@ -25,9 +25,9 @@ Review the session for significant items worth persisting long-term.
 
 For each significant item, call `mcp__vector-memory__store_memories` with appropriate metadata tags.
 
-## 2. Store Checkpoint
+## 2. Set Waypoint
 
-Call `mcp__vector-memory__store_checkpoint` with:
+Call `mcp__vector-memory__set_waypoint` with:
 
 ```
 project: [repository/project name]
@@ -59,7 +59,7 @@ memory_ids:
 Summarize what was stored:
 - Number of memories created
 - Key topics captured
-- Checkpoint stored confirmation
+- Waypoint stored confirmation
 
 ## Guidelines
 

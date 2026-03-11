@@ -6,7 +6,7 @@
  *   1. Turn count (main chain only, excludes subagent/sidechain entries)
  *   2. Context length (input_tokens + cache_read_input_tokens + cache_creation_input_tokens)
  *   3. Compression count (tracked by PreCompact hook in session-compact.ts)
- * Always approves — uses systemMessage for checkpoint recommendations.
+ * Always approves — uses systemMessage for waypoint recommendations.
  *
  * NOTE: Never use "block" in a Stop hook for monitoring purposes. It creates
  * an infinite loop: block → Claude responds → Stop fires again → block → ...

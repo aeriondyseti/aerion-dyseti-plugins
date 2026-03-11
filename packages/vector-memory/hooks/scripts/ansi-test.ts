@@ -19,7 +19,7 @@ const systemMessage = buildSystemMessage("Vector Memory", [
   {
     icon: icon.check,
     iconColor: ansi.green,
-    text: `Checkpoint loaded ${ansi.dim}(2m ago)${ansi.reset}`,
+    text: `Waypoint loaded ${ansi.dim}(2m ago)${ansi.reset}`,
   },
   {
     icon: icon.book,

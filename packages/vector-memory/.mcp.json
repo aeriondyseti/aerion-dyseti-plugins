@@ -3,7 +3,7 @@
     "vector-memory": {
       "type": "stdio",
       "command": "bunx",
-      "args": ["--bun", "@aeriondyseti/vector-memory-mcp@latest", "--enable-history"]
+      "args": ["--bun", "@aeriondyseti/vector-memory-mcp@dev", "--enable-history"]
     }
   }
 }

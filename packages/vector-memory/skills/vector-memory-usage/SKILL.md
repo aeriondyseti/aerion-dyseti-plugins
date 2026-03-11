@@ -137,7 +137,7 @@ Call `mcp__vector-memory__update_memories` when a memory's content is still conc
 - A version number or date needs updating
 - The embedding_text should be improved for better search discoverability
 
-Updating preserves the memory ID, so any checkpoint references to it remain valid.
+Updating preserves the memory ID, so any waypoint references to it remain valid.
 
 ### When to Delete
 
@@ -174,4 +174,4 @@ All tools use the `mcp__vector-memory__` prefix:
 | `mcp__vector-memory__delete_memories` | Soft-delete outdated memories (recoverable) |
 | `mcp__vector-memory__report_memory_usefulness` | Feedback on memory quality |
 
-For session-level snapshots, see the **checkpoint-workflow** skill which covers `mcp__vector-memory__store_checkpoint` and `mcp__vector-memory__get_checkpoint`.
+For session-level snapshots, see the **waypoint-workflow** skill which covers `mcp__vector-memory__set_waypoint` and `mcp__vector-memory__get_waypoint`.

@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.4.1] - 2026-03-11
+
+### Changed
+- Renamed "checkpoint" concept to "waypoint" throughout the plugin
+- Renamed "store" operation to "set" for waypoints (`store_checkpoint` → `set_waypoint`)
+- Restored colon-separated skill names (`checkpoint-get` → `waypoint:get`, etc.)
+- Renamed skill directories: `checkpoint-get/` → `waypoint-get/`, `checkpoint-store/` → `waypoint-set/`, `checkpoint-workflow/` → `waypoint-workflow/`
+- Updated MCP tool references: `store_checkpoint` → `set_waypoint`, `get_checkpoint` → `get_waypoint`
+- Updated all hook scripts, plugin metadata, and marketplace listing to use "waypoint" terminology
+
 ## [1.3.0] - 2026-03-07
 
 ### Changed

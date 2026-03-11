@@ -18,7 +18,7 @@ Then install individual plugins:
 
 ### vector-memory
 
-RAG-powered session memory with checkpoints for Claude Code. Automatically loads the [vector-memory-mcp](https://github.com/AerionDyseti/vector-memory-mcp) server and adds checkpoint commands, workflow skills, and session lifecycle hooks.
+RAG-powered session memory with waypoints for Claude Code. Automatically loads the [vector-memory-mcp](https://github.com/AerionDyseti/vector-memory-mcp) server and adds waypoint commands, workflow skills, and session lifecycle hooks.
 
 **Prerequisites:** [Bun](https://bun.sh/) 1.0+
 
@@ -32,38 +32,38 @@ RAG-powered session memory with checkpoints for Claude Code. Automatically loads
 | `update_memories` | Modify existing memories |
 | `delete_memories` | Soft-delete outdated memories |
 | `report_memory_usefulness` | Feedback for search quality improvement |
-| `store_checkpoint` | Save session state snapshot |
-| `get_checkpoint` | Restore session state |
+| `set_waypoint` | Save session state snapshot |
+| `get_waypoint` | Restore session state |
 
 #### Commands
 
 | Command | Description |
 |---------|-------------|
-| `/checkpoint:get` | Load project context from checkpoint + git + relevant memories |
-| `/checkpoint:store` | Extract session memories, then store a checkpoint snapshot |
+| `/waypoint:get` | Load project context from waypoint + git + relevant memories |
+| `/waypoint:set` | Extract session memories, then store a waypoint snapshot |
 
 #### Skills
 
 | Skill | Triggers On |
 |-------|-------------|
-| **Checkpoint Workflow** | "store a checkpoint", "resume work", "where were we", session management |
+| **Waypoint Workflow** | "set a waypoint", "resume work", "where were we", session management |
 | **Vector Memory Usage** | "remember this", "search memories", "what did we decide", proactive memory search |
 
 #### Hooks
 
 | Event | Behavior |
 |-------|----------|
-| **SessionStart** | Suggests loading checkpoint if server is available |
-| **UserPromptSubmit** | Detects `/clear` and suggests storing checkpoint first |
+| **SessionStart** | Suggests loading waypoint if server is available |
+| **UserPromptSubmit** | Detects `/clear` and suggests setting waypoint first |
 | **Stop** | Monitors context usage — warns at 50%, blocks at 75% |
 
 #### Workflow
 
 ```
-1. Session starts → Accept checkpoint load suggestion
+1. Session starts → Accept waypoint load suggestion
 2. Work on tasks
-3. Context monitor warns at 50% → Consider checkpointing
-4. Complete discrete task → /checkpoint:store
+3. Context monitor warns at 50% → Consider setting a waypoint
+4. Complete discrete task → /waypoint:set
 5. /clear → Fresh context for next task
 6. Repeat
 ```

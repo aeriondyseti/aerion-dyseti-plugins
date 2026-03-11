@@ -4,7 +4,7 @@
  *
  * 1. Checks the vector-memory MCP server is reachable
  * 2. Triggers incremental conversation history indexing (if enabled)
- * 3. Loads the latest checkpoint with referenced memories
+ * 3. Loads the latest waypoint with referenced memories
  * 4. Outputs structured JSON: systemMessage (user) + additionalContext (Claude)
  *
  * Steps 2 and 3 run in parallel to stay within the 15s hook timeout.
@@ -41,7 +41,7 @@ interface IndexResponse {
   errors?: string[];
 }
 
-interface CheckpointResponse {
+interface WaypointResponse {
   content: string;
   metadata: Record<string, unknown>;
   referencedMemories: Array<{ id: string; content: string }>;
@@ -130,7 +130,7 @@ async function main() {
 
   debug("session-start", "Server healthy");
 
-  // Steps 2 & 3: Index conversations + load checkpoint in parallel
+  // Steps 2 & 3: Index conversations + load waypoint in parallel
   const indexPromise = health.data.config.historyEnabled
     ? fetchJson<IndexResponse>("/index-conversations", {
         method: "POST",
@@ -140,11 +140,11 @@ async function main() {
       })
     : null;
 
-  const checkpointPromise = fetchJson<CheckpointResponse>("/checkpoint");
+  const waypointPromise = fetchJson<WaypointResponse>("/waypoint");
 
-  const [indexResult, checkpoint] = await Promise.all([
+  const [indexResult, waypoint] = await Promise.all([
     indexPromise,
-    checkpointPromise,
+    waypointPromise,
   ]);
 
   // Process indexing result
@@ -164,23 +164,23 @@ async function main() {
     }
   }
 
-  // Process checkpoint result
-  if (!checkpoint.ok) {
-    if (checkpoint.status === 404) {
+  // Process waypoint result
+  if (!waypoint.ok) {
+    if (waypoint.status === 404) {
       userLines.push({
         icon: icon.dot,
-        text: `${ansi.dim}No checkpoint found — fresh session${ansi.reset}`,
+        text: `${ansi.dim}No waypoint found — fresh session${ansi.reset}`,
       });
     } else {
-      warnings.push(`Checkpoint load failed: ${checkpoint.error}`);
-      debug("session-start", `Checkpoint error: ${checkpoint.error}`);
+      warnings.push(`Waypoint load failed: ${waypoint.error}`);
+      debug("session-start", `Waypoint error: ${waypoint.error}`);
     }
     emit(userLines, warnings);
     return;
   }
 
   // Step 4: Format output
-  const cp = checkpoint.data;
+  const cp = waypoint.data;
   const age = timeAgo(cp.updatedAt);
   const branch = cp.metadata.branch as string | undefined;
   const memoryCount = cp.referencedMemories.length;
@@ -189,7 +189,7 @@ async function main() {
   userLines.push({
     icon: icon.check,
     iconColor: ansi.green,
-    text: `Checkpoint loaded ${ansi.dim}(${age})${ansi.reset}`,
+    text: `Waypoint loaded ${ansi.dim}(${age})${ansi.reset}`,
   });
 
   const detailParts: string[] = [];
@@ -214,7 +214,7 @@ async function main() {
   if (branch) metaParts.push(`Branch: ${branch}`);
   if (cp.metadata.project) metaParts.push(`Project: ${cp.metadata.project}`);
 
-  contextParts.push(`## Session Checkpoint (${metaParts.join(" | ")})\n\n${cp.content}`);
+  contextParts.push(`## Session Waypoint (${metaParts.join(" | ")})\n\n${cp.content}`);
 
   if (memoryCount > 0) {
     const memories = cp.referencedMemories

@@ -14,13 +14,13 @@
     {
       "name": "vector-memory",
       "source": "./packages/vector-memory",
-      "description": "RAG-powered session memory with checkpoints for Claude Code",
+      "description": "RAG-powered session memory with waypoints for Claude Code",
       "version": "1.4.0",
       "author": {
         "name": "AerionDyseti"
       },
       "category": "productivity",
-      "tags": ["memory", "rag", "checkpoints", "session-persistence", "vector-search"]
+      "tags": ["memory", "rag", "waypoints", "session-persistence", "vector-search"]
     },
     {
       "name": "code-flow",
