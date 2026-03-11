@@ -1,0 +1,12 @@
+{
+  "name": "vector-memory",
+  "version": "1.4.0",
+  "description": "RAG-powered session memory with checkpoints for Claude Code",
+  "author": {
+    "name": "AerionDyseti",
+    "url": "https://github.com/AerionDyseti"
+  },
+  "repository": "https://github.com/AerionDyseti/claude-plugins",
+  "license": "MIT",
+  "keywords": ["memory", "rag", "checkpoints", "session-persistence", "vector-search"]
+}

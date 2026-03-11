@@ -15,9 +15,9 @@
 set -euo pipefail
 
 # ── Configuration ──────────────────────────────────────────────────
-MARKETPLACE="aerion-dyseti-plugins"
+MARKETPLACE="claude-plugins"
 CACHE_BASE="$HOME/.claude/plugins/cache/$MARKETPLACE"
-SOURCE_BASE="$HOME/Development/$MARKETPLACE/plugins"
+SOURCE_BASE="$HOME/Development/tools/claude-plugins/packages"
 
 # ── Colors ─────────────────────────────────────────────────────────
 RED='\033[0;31m'

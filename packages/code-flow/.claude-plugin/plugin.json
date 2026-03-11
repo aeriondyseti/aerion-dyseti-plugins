@@ -1,0 +1,12 @@
+{
+  "name": "code-flow",
+  "version": "0.2.0",
+  "description": "Structured development workflow skills and agents for Claude Code",
+  "author": {
+    "name": "AerionDyseti",
+    "url": "https://github.com/AerionDyseti"
+  },
+  "repository": "https://github.com/AerionDyseti/claude-plugins",
+  "license": "MIT",
+  "keywords": ["workflow", "code-review", "planning", "debugging", "agents"]
+}

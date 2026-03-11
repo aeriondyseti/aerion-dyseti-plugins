@@ -1,0 +1,12 @@
+{
+  "name": "frontend-design",
+  "version": "0.0.1",
+  "description": "Frontend design guidance, Playwright browser automation skill, and Playwright MCP server in one plugin",
+  "author": {
+    "name": "AerionDyseti",
+    "url": "https://github.com/AerionDyseti"
+  },
+  "repository": "https://github.com/AerionDyseti/claude-plugins",
+  "license": "MIT",
+  "keywords": ["frontend", "design", "ui", "ux", "playwright", "browser", "automation", "testing", "e2e", "mcp"]
+}
